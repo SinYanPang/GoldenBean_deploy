@@ -5,6 +5,9 @@
   "main": "index.js",
   "author": "Blessing Ajiboye",
   "license": "MIT",
+  "engines": {
+    "node": "20.x"
+  },
   "devDependencies": {
     "@babel/core": "^7.27.1",
     "@babel/preset-env": "^7.27.2",
