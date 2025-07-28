@@ -20,25 +20,34 @@ import { useLocation, Navigate, Link, useParams } from "react-router-dom";
 
 export default function Profile() {
   const location = useLocation();
+  const { userId } = useParams();
+  const jwt = auth.isAuthenticated();
+
   const [user, setUser] = useState({});
   const [redirectToSignin, setRedirectToSignin] = useState(false);
-  const jwt = auth.isAuthenticated();
-  const { userId } = useParams();
 
   useEffect(() => {
     const abortController = new AbortController();
     const signal = abortController.signal;
 
-    read({ userId }, { t: jwt.token }, signal).then((data) => {
-      if (data && data.error) {
-        setRedirectToSignin(true);
-      } else {
-        setUser(data);
-      }
-    });
+    read({ userId }, { t: jwt.token }, signal)
+      .then((data) => {
+        if (data?.error) {
+          setRedirectToSignin(true);
+        } else {
+          setUser(data);
+        }
+      })
+      .catch((err) => {
+        if (err.name !== "AbortError") {
+          console.error("API call failed:", err);
+        }
+      });
 
-    return () => abortController.abort();
-  }, [userId]);
+    return () => {
+      abortController.abort();
+    };
+  }, [userId, jwt.token]);
 
   if (redirectToSignin) {
     return (
@@ -67,17 +76,16 @@ export default function Profile() {
             </Avatar>
           </ListItemAvatar>
           <ListItemText primary={user.name} secondary={user.email} />
-          {auth.isAuthenticated().user &&
-            auth.isAuthenticated().user._id === user._id && (
-              <ListItemSecondaryAction>
-                <Link to={`/user/edit/${user._id}`}>
-                  <IconButton aria-label="Edit" color="primary">
-                    <EditIcon />
-                  </IconButton>
-                </Link>
-                <DeleteUser userId={user._id} />
-              </ListItemSecondaryAction>
-            )}
+          {jwt.user?._id === user._id && (
+            <ListItemSecondaryAction>
+              <Link to={`/user/edit/${user._id}`}>
+                <IconButton aria-label="Edit" color="primary">
+                  <EditIcon />
+                </IconButton>
+              </Link>
+              <DeleteUser userId={user._id} />
+            </ListItemSecondaryAction>
+          )}
         </ListItem>
         <Divider />
         <ListItem>

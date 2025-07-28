@@ -88,8 +88,16 @@ export default function Contact() {
 
   return (
     <Box sx={{ padding: "30px" }}>
-      <Typography variant="h4" gutterBottom>
-        Contacts
+      <Typography
+      variant="h4"
+      sx={{
+        fontWeight: "bold",
+        textAlign: "left",
+        color: "#646cff",
+        mb: 4,
+      }}
+      >
+       Contact
       </Typography>
 
       {/* Only Admins Can Add/Edit */}

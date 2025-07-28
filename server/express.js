@@ -11,6 +11,9 @@ import contactRoutes from "./routes/contactRoutes.js";
 import projectRoutes from "./routes/projectRoutes.js";
 import qualificationRoutes from "./routes/qualificationRoutes.js";
 
+import path from "path";
+const CURRENT_WORKING_DIR = process.cwd();
+
 const app = express();
 
 // ✅ Middleware first (important order!)
@@ -22,6 +25,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(cookieParser());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+app.use(express.static(path.join(CURRENT_WORKING_DIR, "dist/app")));
 
 // ✅ Register routes after middleware
 app.use("/", userRoutes);

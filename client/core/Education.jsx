@@ -99,8 +99,16 @@ export default function Education() {
 
   return (
     <Box sx={{ padding: "30px" }}>
-      <Typography variant="h4" gutterBottom>
-        Education Qualifications
+      <Typography
+      variant="h4"
+      sx={{
+        fontWeight: "bold",
+        textAlign: "left",
+        color: "#646cff",
+        mb: 4,
+      }}
+      >
+        Education and Qualifications
       </Typography>
 
       {/* Admin-only Form */}

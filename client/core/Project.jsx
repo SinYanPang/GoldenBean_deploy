@@ -5,17 +5,15 @@ import {
   updateProject,
   deleteProject,
 } from "../lib/project-api.js";
+import auth from "../lib/auth-helper.js";
 import {
   Box,
   Button,
-  Card,
-  CardContent,
-  CardActions,
   Typography,
   TextField,
   Grid,
 } from "@mui/material";
-import auth from "../lib/auth-helper.js";
+import "./Project.css";
 
 export default function Project() {
   const [projects, setProjects] = useState([]);
@@ -28,8 +26,7 @@ export default function Project() {
     description: "",
   });
   const [editingId, setEditingId] = useState(null);
-
-  const isAdmin = auth.isAdmin(); // Check if current user is admin
+  const isAdmin = auth.isAdmin();
 
   useEffect(() => {
     fetchProjects();
@@ -40,7 +37,7 @@ export default function Project() {
       const data = await getProjects();
       setProjects(data || []);
     } catch (err) {
-      console.error("Failed to fetch projects:", err);
+      console.error("Fetch error:", err);
     }
   };
 
@@ -49,10 +46,8 @@ export default function Project() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-
     try {
       let savedProject;
-
       if (editingId) {
         savedProject = await updateProject(editingId, formData);
         setProjects((prev) =>
@@ -60,7 +55,7 @@ export default function Project() {
         );
       } else {
         savedProject = await createProject(formData);
-        if (savedProject && savedProject._id) {
+        if (savedProject?._id) {
           setProjects((prev) => [...prev, savedProject]);
         }
       }
@@ -100,15 +95,31 @@ export default function Project() {
     }
   };
 
-  return (
-    <Box sx={{ padding: "30px" }}>
-      <Typography variant="h4" gutterBottom>
-        Projects
-      </Typography>
+  const getImagePath = (title) => {
+    const fileName = title?.toLowerCase().replace(/\s+/g, "-") + ".png";
+    return `/images/${fileName}`;
+  };
 
-      {/* Admin-Only Form */}
+  return (
+    <Box className="project-container">
+        <Typography
+          variant="h4"
+          sx={{
+            fontWeight: "bold",
+            textAlign: "left",
+            color: "#646cff",
+            mb: 4,
+          }}
+        >
+          Projects
+        </Typography>
+
       {isAdmin && (
-        <Box component="form" onSubmit={handleSubmit} sx={{ marginBottom: 4 }}>
+        <Box
+          component="form"
+          onSubmit={handleSubmit}
+          className="project-form"
+        >
           <Grid container spacing={2}>
             <Grid item xs={12} sm={6}>
               <TextField
@@ -176,56 +187,42 @@ export default function Project() {
               />
             </Grid>
           </Grid>
-          <Box sx={{ marginTop: 2 }}>
-            <Button type="submit" variant="contained" color="primary">
-              {editingId ? "Update" : "Add"}
-            </Button>
-          </Box>
+          <Button type="submit" variant="contained" color="primary">
+            {editingId ? "Update" : "Add"}
+          </Button>
         </Box>
       )}
 
-      {/* Project Cards */}
-      <Grid container spacing={3}>
-        {projects.map((p) => (
-          <Grid item xs={12} md={6} key={p._id}>
-            <Card>
-              <CardContent>
-                <Typography variant="h6">{p.title}</Typography>
-                <Typography variant="body2">
-                  Name: {p.firstname} {p.lastname}
-                </Typography>
-                <Typography variant="body2">Email: {p.email}</Typography>
-                <Typography variant="body2">
-                  Completion: {new Date(p.completion).toLocaleDateString()}
-                </Typography>
-                <Typography variant="body2" sx={{ marginTop: 1 }}>
-                  {p.description}
-                </Typography>
-              </CardContent>
-
-              {/* Admin-Only Actions */}
-              {isAdmin && (
-                <CardActions>
-                  <Button
-                    size="small"
-                    color="primary"
-                    onClick={() => handleEdit(p)}
-                  >
-                    Edit
-                  </Button>
-                  <Button
-                    size="small"
-                    color="error"
-                    onClick={() => handleDelete(p._id)}
-                  >
-                    Delete
-                  </Button>
-                </CardActions>
-              )}
-            </Card>
-          </Grid>
-        ))}
-      </Grid>
+      {/* Project List */}
+      {projects.map((p) => (
+        <div key={p._id} className="project-entry">
+          <div className="project-image">
+            <img
+              src={getImagePath(p.title)}
+              alt={p.title}
+              onError={(e) => (e.target.src = "/images/default.jpg")}
+              className="project-img"
+            />
+          </div>
+          <div className="project-text">
+            <h3>{p.title}</h3>
+            <p><strong>Name:</strong> {p.firstname} {p.lastname}</p>
+            <p><strong>Email:</strong> {p.email}</p>
+            <p><strong>Completion:</strong> {new Date(p.completion).toLocaleDateString()}</p>
+            <p><strong>Description:</strong> {p.description}</p>
+            {isAdmin && (
+              <div className="project-actions">
+                <Button onClick={() => handleEdit(p)} variant="outlined" sx={{ mr: 1 }}>
+                  Edit
+                </Button>
+                <Button onClick={() => handleDelete(p._id)} color="error" variant="outlined">
+                  Delete
+                </Button>
+              </div>
+            )}
+          </div>
+        </div>
+      ))}
     </Box>
   );
 }
