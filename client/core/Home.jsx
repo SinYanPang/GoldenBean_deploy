@@ -33,9 +33,16 @@ const Home = () => {
             <Typography variant="body1">
               I am a software engineering student studying in Centennial College.
               I aspire to design and develop innovative software applications and
-              enterprise information systems that solve real-world problems and
+              enterprise information systems that solve real-world problems and 
               enhance user experiences.
-            </Typography>
+              </Typography>
+              <Typography
+              variant="subtitle1"
+              sx={{ fontStyle: "italic", color: "text.secondary", mt: 1 }}
+              >
+                Driven by passion, powered by code.
+              </Typography>
+
           </Grid>
 
           {/* Right: Photo */}
