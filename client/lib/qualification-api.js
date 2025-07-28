@@ -1,6 +1,6 @@
 import auth from "./auth-helper.js";
 
-const API = "http://localhost:3000/api/qualifications";
+const API = "/api/qualifications";
 
 // Create Qualification (Admin only)
 export const createQualification = async (qualification) => {
