@@ -22,6 +22,10 @@ const Home = () => {
       <Typography variant="body1" sx={{ color: "#35465f", mb: 4 }}>
         A cozy place for coffee lovers to enjoy the finest brews and pastries.
       </Typography>
+      
+      <Typography variant="body1" sx={{ mt: 2 }}>
+        Coffee, Comfort, Community
+      </Typography>
 
       <Link to="/about">
         <Button className="about-button">Learn More About Us</Button>
