@@ -1,0 +1,62 @@
+.order-container {
+  max-width: 400px;
+  margin: 0 auto;
+  padding: 20px;
+  font-family: Arial, sans-serif;
+}
+
+.order-container form {
+  display: flex;
+  flex-direction: column;
+}
+
+.order-container label {
+  margin-bottom: 20px;
+}
+
+.order-container input[type="text"],
+.order-container select {
+  width: 100%;
+  padding: 8px;
+  margin-top: 5px;
+  box-sizing: border-box;
+}
+
+.order-container button {
+  padding: 10px;
+  margin-top: 20px;
+  cursor: pointer;
+}
+
+.error {
+  color: red;
+  margin-top: -10px;
+  margin-bottom: 20px;
+}
+
+.checkbox__input {
+  margin-bottom: 30px;
+}
+
+.dropdown__selected {
+  margin-top: 9rem;
+}
+
+/* Order.css */
+.order-container button {
+  background-color: #ffffff; /* white background */
+  color: #35465f; /* text color */
+  border: 2px solid #35465f;
+  padding: 0.6em 1.2em;
+  font-size: 1em;
+  font-weight: 500;
+  font-family: inherit;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  margin: 10px;
+}
+
+.order-container button:hover {
+  background-color: #e6cdbc; /* hover background */
+}

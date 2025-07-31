@@ -7,9 +7,8 @@ import helmet from "helmet";
 
 import userRoutes from "./routes/user.routes.js";
 import authRoutes from "./routes/auth.routes.js";
-import contactRoutes from "./routes/contactRoutes.js";
-import projectRoutes from "./routes/projectRoutes.js";
-import qualificationRoutes from "./routes/qualificationRoutes.js";
+import orderRoutes from "./routes/orderRoutes.js";
+
 
 import path from "path";
 const CURRENT_WORKING_DIR = process.cwd();
@@ -30,9 +29,8 @@ app.use(express.static(path.join(CURRENT_WORKING_DIR, "dist/app")));
 // ✅ Register routes after middleware
 app.use("/", userRoutes);
 app.use("/", authRoutes);
-app.use("/", contactRoutes);
-app.use("/", projectRoutes);
-app.use("/", qualificationRoutes);
+app.use("/", orderRoutes);
+
 
 // ✅ Error handling
 app.use((err, req, res, next) => {

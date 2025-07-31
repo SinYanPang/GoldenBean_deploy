@@ -1,0 +1,15 @@
+.about-button {
+  background-color: #ffffff;
+  color: #35465f;
+  border: 2px solid #35465f; 
+  padding: 10px 20px;
+  font-weight: bold;
+  text-transform: none;
+  transition: all 0.3s ease;
+}
+
+.about-button:hover {
+  color: #b87c4b;
+  cursor: pointer;
+  border: 2px solid #35465f;
+}

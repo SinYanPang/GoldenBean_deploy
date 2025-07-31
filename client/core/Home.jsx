@@ -1,67 +1,31 @@
 import React from "react";
-import { Typography, Box, Button, Grid, Container } from "@mui/material";
+import { Box, Button, Typography } from "@mui/material";
 import { Link } from "react-router-dom";
-import formalPhoto from "../assets/images/formalPhoto.jpg";
+import "./Home.css";
 
 const Home = () => {
   return (
-    <Box sx={{ pt: 8, px: 3 }}>
-      <Container maxWidth="lg">
-        {/* Title */}
-        <Typography
-          variant="h4"
-          sx={{
-            fontWeight: "bold",
-            textAlign: "left",
-            color: "#646cff",
-            mb: 4,
-          }}
-        >
-          Welcome to my portfolio! I am Pang Sin Yan, Ada.
-        </Typography>
+    <Box
+      sx={{
+        display: "flex",
+        flexDirection: "column",
+        alignItems: "center", 
+        textAlign: "center", 
+        px: 2,
+        mt: 8,                 
+      }}
+    >
+      <Typography variant="h4" sx={{ fontWeight: "bold", color: "#35465f", mb: 2 }}>
+        Welcome to Golden Bean Cafe
+      </Typography>
 
-        {/* Content: Text Left, Image Right */}
-        <Grid
-          container
-          spacing={4}
-          alignItems="center"
-          justifyContent="space-between"
-          direction={{ xs: "column", md: "row" }}
-        >
-          {/* Left: Text */}
-          <Grid item xs={12} md={6}>
-            <Typography variant="body1">
-              I am a software engineering student studying in Centennial College.
-              I aspire to design and develop innovative software applications and
-              enterprise information systems that solve real-world problems and 
-              enhance user experiences.
-              </Typography>
-              <Typography
-              variant="subtitle1"
-              sx={{ fontStyle: "italic", color: "text.secondary", mt: 1 }}
-              >
-                Driven by passion, powered by code.
-              </Typography>
+      <Typography variant="body1" sx={{ color: "#35465f", mb: 4 }}>
+        A cozy place for coffee lovers to enjoy the finest brews and pastries.
+      </Typography>
 
-          </Grid>
-
-          {/* Right: Photo */}
-          <Grid item xs={12} md={6}>
-            <Box
-              component="img"
-              src={formalPhoto}
-              alt="Pang Sin Yan"
-              sx={{
-                width: "100%",
-                maxHeight: 400,
-                objectFit: "cover",
-                borderRadius: 2,
-                boxShadow: 3,
-              }}
-            />
-          </Grid>
-        </Grid>
-      </Container>
+      <Link to="/about">
+        <Button className="about-button">Learn More About Us</Button>
+      </Link>
     </Box>
   );
 };

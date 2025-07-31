@@ -3,13 +3,14 @@ import { Route, Routes } from "react-router-dom";
 import Home from "./core/Home";
 import Users from "./user/Users.jsx";
 import Signup from "./user/Signup.jsx";
-import Signin from './lib/Signin.jsx';
+import Signin from "./lib/Signin.jsx";
 import Profile from "./user/Profile.jsx";
 import PrivateRoute from "./lib/PrivateRoute.jsx";
 import EditProfile from "./user/EditProfile.jsx";
-import Education from "./core/Education.jsx";
-import Project from "./core/Project.jsx";
-import Contact from "./core/Contact.jsx";
+import About from "./core/About.jsx";
+import MenuTab from "./core/MenuTab.jsx";
+import Order from "./core/Order.jsx";
+import OrderList from "./core/OrderList.jsx";
 
 import Menu from "./core/Menu";
 
@@ -22,6 +23,7 @@ function MainRouter() {
         <Route path="/users" element={<Users />} />
         <Route path="/signup" element={<Signup />} />
         <Route path="/signin" element={<Signin />} />
+
         <Route
           path="/user/edit/:userId"
           element={
@@ -31,9 +33,26 @@ function MainRouter() {
           }
         />
         <Route path="/user/:userId" element={<Profile />} />
-        <Route path="/education" element={<Education />} />
-        <Route path="/project" element={<Project />} />
-        <Route path="/contact" element={<Contact />} />
+        <Route path="/about" element={<About />} />
+        <Route path="/menu" element={<MenuTab />} />
+
+        {/* Protected routes */}
+        <Route
+          path="/order"
+          element={
+            <PrivateRoute>
+              <Order />
+            </PrivateRoute>
+          }
+        />
+        <Route
+          path="/orderlist"
+          element={
+            <PrivateRoute>
+              <OrderList />
+            </PrivateRoute>
+          }
+        />
       </Routes>
     </div>
   );
